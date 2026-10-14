@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SAINS Dinner | Guest Check-in</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;color:#f5f2ed;background:#111b29}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top right,#513c40,transparent 65%),#111b29;min-height:100vh}main{max-width:620px;margin:auto;padding:36px 20px}header{margin-bottom:26px}.eyebrow{letter-spacing:.22em;color:#dfb5a0;font-size:12px}h1{font-size:32px;margin:9px 0}p{color:#b9c2cf;line-height:1.6}section{background:#1a2636;border:1px solid #405064;border-radius:18px;padding:24px;margin:18px 0}label{display:block;margin:14px 0 6px;color:#e8e3de;font-size:14px}input,button{font:inherit;width:100%;padding:13px;border-radius:9px}input{background:#111c2a;border:1px solid #526378;color:white}button{cursor:pointer;border:0;background:#e1b5a0;color:#202733;font-weight:700;margin-top:14px}button:disabled{opacity:.5;cursor:default}.secondary{background:#304155;color:#fff}.counts{display:flex;gap:12px;margin-top:20px}.counts div{flex:1;background:#111c2a;border-radius:12px;padding:16px}.counts strong{font-size:26px;display:block}.counts span{font-size:12px;color:#b9c2cf}[hidden]{display:none!important}#reader{overflow:hidden;border-radius:12px;margin-top:18px}#result{text-align:center;border-color:#dcb59f}.table{font-size:72px;color:#e1b5a0;font-weight:800;line-height:1.15;margin:8px;overflow-wrap:anywhere}#guest{font-size:23px;overflow-wrap:anywhere}.warning{color:#ffcd83}.success{color:#88e1bb}#message{white-space:pre-wrap;color:#ffcfaa;min-height:24px}.small{font-size:12px}details{margin-top:20px}summary{cursor:pointer;color:#c4cddb}footer{font-size:12px;color:#a5b0bf;text-align:center;padding:18px}
+</style>
+<script src="public-config.js"></script>
+<script src="sheet-bridge.js"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+</head><body><p style="text-align:center"><a href="dashboard.html" style="color:#e3bc8d">Open attendance dashboard</a></p><main>
+<header><div class="eyebrow">SAINS · DINNER RECEPTION</div><h1>Welcome to the evening.</h1><p>Scan a guest’s invitation to confirm their table and record their arrival.</p></header>
+<section id="setup"><h2>Staff connection</h2>
+<label for="api">Apps Script Web app URL</label><input id="api" type="url" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off">
+<label for="key">Private staff key</label><input id="key" type="password" autocomplete="off">
+<label for="staff">Your staff name</label><input id="staff" maxlength="80" autocomplete="name">
+<button id="connect">Connect to dinner system</button><p class="small">Get the private STAFF_KEY from the organiser. It is kept only in this page’s memory. Google may take a moment to connect on the first visit.</p></section>
+<section id="scan" hidden><div class="eyebrow">RECEPTION DESK</div><h2>Guest check-in</h2>
+<div class="counts"><div><strong id="arrived">0</strong><span>ARRIVED</span></div><div><strong id="total">0</strong><span>INVITED</span></div></div>
+<button id="camera">Start camera</button><button id="stop" class="secondary" hidden>Stop camera</button><div id="reader"></div>
+<label for="image">Or scan a saved QR image</label><input type="file" id="image" accept="image/*">
+<details><summary>Enter QR text manually</summary><label for="manual">SAINS QR token</label><input id="manual" placeholder="SAINS26:…" autocomplete="off"><button id="submit">Check in guest</button></details>
+<button id="retry" class="secondary" hidden>Retry / scan next guest</button>
+<button id="export" class="secondary">Download attendance CSV</button><button id="disconnect" class="secondary">Disconnect</button></section>
+<section id="result" hidden aria-live="polite"><div id="status" class="eyebrow"></div><h2 id="guest"></h2><div class="small">ASSIGNED TABLE</div><div id="table" class="table"></div><p id="time"></p><button id="next">Scan next guest</button></section>
+<p id="message" role="status" aria-live="polite"></p><footer>SAINS Dinner · Staff check-in portal</footer>
+</main><script>
+'use strict';
+const $=id=>document.getElementById(id);
+let base='', key='', staff='', scanner=null, busy=false, connected=false;
+const bridge=new SainsSheetBridge();
+if(window.SAINS_APPS_SCRIPT_URL) $('api').value=window.SAINS_APPS_SCRIPT_URL;
+function message(s){$('message').textContent=s;}
+async function api(path,options={}){
+ const actions={'/api/stats':'stats','/api/check-in':'checkin','/api/export':'export'};
+ const data=await bridge.request({action:actions[path],key,...(options.body?JSON.parse(options.body):{})});
+ return {json:async()=>data,blob:async()=>new Blob([data.csv||''],{type:'text/csv;charset=utf-8'})};
+}
+async function refresh(){const j=await(await api('/api/stats')).json();$('total').textContent=j.total;$('arrived').textContent=j.arrived;}
+async function stop(){if(scanner&&scanner.isScanning)await scanner.stop();$('stop').hidden=true;$('camera').disabled=false;}
+async function check(text){
+ if(busy||!connected)return;busy=true;message('Checking guest…');
+ if(!/^SAINS26:[A-Za-z0-9_-]{32}$/.test(text.trim())){message('This is not a SAINS dinner QR. Select Retry to scan another pass.');$('retry').hidden=false;return;}
+ try{const j=await(await api('/api/check-in',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({qr:text.trim(),staff})})).json();
+ $('status').textContent=j.status==='checked_in'?'CHECK-IN CONFIRMED':'ALREADY CHECKED IN';
+ if(j.is_test) $('status').textContent='TEST PASS · '+$('status').textContent;
+ $('status').className='eyebrow '+(j.status==='checked_in'?'success':'warning');
+ $('guest').textContent=j.name;$('table').textContent=j.table_number;
+ $('time').textContent='Recorded '+new Date(j.checked_in_at).toLocaleString()+' · '+j.checked_in_by;
+ $('result').hidden=false;message('');
+ $('result').scrollIntoView({behavior:'smooth',block:'center'});
+ if(navigator.vibrate) navigator.vibrate(100);
+ try{await refresh();}catch{message('Guest recorded. Attendance count could not refresh.');}
+ }catch(e){message(e.message+' Select Retry when ready. Repeat scans do not create another real arrival.');$('retry').hidden=false;}
+}
+$('connect').onclick=async()=>{
+ try{base=$('api').value.trim();key=$('key').value.trim();staff=$('staff').value.trim();if(!key||!staff)throw Error('Enter the staff key and your name.');
+ $('connect').disabled=true;message('Connecting to Google attendance…');await bridge.connect(base);await refresh();connected=true;$('key').value='';$('setup').hidden=true;$('scan').hidden=false;message('Connected. Ready to scan.');
+ }catch(e){key='';bridge.close();message(e.message);}finally{$('connect').disabled=false;}
+};
+$('camera').onclick=async()=>{
+ $('camera').disabled=true;
+ try{if(typeof Html5Qrcode==='undefined')throw Error('Scanner library could not load. Check the internet connection or use manual entry.');
+ if(!navigator.mediaDevices)throw Error('Camera access requires HTTPS and a supported browser.');
+ scanner=scanner||new Html5Qrcode('reader');
+ await scanner.start({facingMode:'environment'},{fps:8,qrbox:{width:220,height:220}},text=>check(text),()=>{});$('stop').hidden=false;message('Point the camera at the guest’s QR code.');
+ }catch(e){message('Camera could not start: '+(e.message||String(e)));$('camera').disabled=false;}
+};
+$('stop').onclick=()=>stop().catch(e=>message(e.message));
+$('image').onchange=async e=>{const file=e.target.files[0];if(!file||busy)return;try{await stop();if(typeof Html5Qrcode==='undefined')throw Error('Scanner library could not load.');scanner=scanner||new Html5Qrcode('reader');await check(await scanner.scanFile(file,false));}catch(e){message(e.message||'QR image could not be read.');}finally{e.target.value='';}};
+$('submit').onclick=()=>check($('manual').value);
+$('next').onclick=()=>{busy=false;$('retry').hidden=true;$('result').hidden=true;$('manual').value='';message('Ready for the next guest.');$('reader').scrollIntoView({behavior:'smooth',block:'center'});};
+$('retry').onclick=()=>{$('next').click();};
+$('export').onclick=async()=>{try{const blob=await(await api('/api/export')).blob(),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='attendance.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){message(e.message);}};
+$('disconnect').onclick=async()=>{try{await stop();}catch{}bridge.close();key='';connected=false;busy=false;$('retry').hidden=true;$('scan').hidden=true;$('result').hidden=true;$('setup').hidden=false;message('Disconnected.');};
+</script></body></html>
