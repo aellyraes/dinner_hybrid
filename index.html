@@ -4,6 +4,8 @@
 <style>
 :root{color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#f5f5f5;background:#09090b;--red:#e3293d;--muted:#a9a9b2}*{box-sizing:border-box}body{margin:0;min-height:100vh;min-height:100dvh;background:radial-gradient(ellipse at 50% 0,rgba(190,25,47,.12),transparent 55%),#09090b}main{width:100%;max-width:720px;margin:auto;padding:40px 24px 24px}.topbar{max-width:1240px;margin:auto;padding:24px 28px 0}.dashboard-link{display:inline-flex;align-items:center;gap:10px;padding:12px 17px;border:1px solid #533039;border-radius:10px;background:#211014;color:#fff;text-decoration:none;font-size:14px;font-weight:650;min-height:46px}.dashboard-link:hover{background:#38151d;border-color:var(--red)}.dashboard-link svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}header{text-align:center;margin:0 0 30px}header .eyebrow{margin-bottom:12px}h1{max-width:650px;margin:0 auto;font-size:clamp(25px,4.5vw,37px);line-height:1.22;letter-spacing:-.035em;font-weight:750;text-wrap:balance}header p{max-width:470px;margin:16px auto 0;font-size:14px}p{color:var(--muted);line-height:1.65}.eyebrow{letter-spacing:.16em;color:#f46b78;font-size:11px;font-weight:700}section{background:#121215;border:1px solid #2b2b31;border-radius:18px;padding:28px;margin:18px 0;box-shadow:0 16px 45px #0003}#setup{border-top:3px solid var(--red)}h2{font-size:20px;letter-spacing:-.02em;margin:0 0 8px}label{display:block;margin:20px 0 8px;color:#dedee3;font-size:13px;font-weight:550}input,button{font:inherit;width:100%;padding:14px 15px;border-radius:10px;min-width:0;min-height:48px}input{background:#09090c;border:1px solid #36363f;color:#fff;font-size:16px}input::placeholder{color:#74747e}input:focus{outline:2px solid #e3293d;outline-offset:2px}button{cursor:pointer;border:1px solid transparent;background:#d91f35;color:#fff;font-weight:700;margin-top:16px;transition:background .15s}button:hover{background:#ee3046}button:disabled{opacity:.5;cursor:default}.secondary{background:#202025;border-color:#38383f;color:#e8e8ed}.secondary:hover{background:#2b2b33}a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #fb7b88;outline-offset:4px}.counts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}.counts div{background:#0b0b0e;border:1px solid #29292f;border-radius:12px;padding:18px}.counts strong{font-size:30px;display:block}.counts span{font-size:11px;letter-spacing:.1em;color:var(--muted)}[hidden]{display:none!important}#reader{width:100%;overflow:hidden;border-radius:12px;margin-top:18px}#reader video,#reader img{max-width:100%!important}#result{text-align:center;border-color:#b52537;background:linear-gradient(145deg,#211014,#121215 70%)}.table{font-size:clamp(48px,12vw,76px);color:#ff5267;font-weight:800;line-height:1.15;margin:12px 0;overflow-wrap:anywhere}#guest{font-size:24px;overflow-wrap:anywhere}.warning{color:#ffd089}.success{color:#79e2ac}#message{white-space:pre-wrap;overflow-wrap:anywhere;color:#ffb0b9;min-height:24px;font-size:14px}.small{font-size:12px}details{margin-top:22px}summary{cursor:pointer;color:#d3d3dd;padding:6px 0}footer{font-size:11px;color:#797982;text-align:center;padding:20px 8px;border-top:1px solid #242429;margin-top:26px}input[type=file]{font-size:13px;padding:10px}input::file-selector-button{background:#29292f;color:white;border:0;border-radius:5px;padding:8px;margin-right:8px}@media(max-width:520px){.topbar{padding:16px 16px 0}main{padding:28px 16px 16px}header{margin-bottom:24px}section{padding:22px 18px;border-radius:14px}.dashboard-link{font-size:13px;padding:10px 13px}header p{font-size:13px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 
+
+.name-search{margin:24px 0;padding:22px 0;border-top:1px solid #33333c;border-bottom:1px solid #33333c}.name-search h3{margin:0;font-size:18px}.name-search p{margin:8px 0;font-size:13px}.search-controls{display:flex;gap:10px;align-items:stretch;margin-top:12px}.search-controls input{flex:1;width:auto}.search-controls button{width:auto;margin:0;min-width:100px}.guest-match{padding:16px;margin:12px 0;background:#0b0b0e;border:1px solid #34343d;border-radius:10px;overflow-wrap:anywhere}.guest-match h4{margin:0 0 6px;font-size:16px}.guest-match p{margin:4px 0}.guest-match button{font-size:14px;margin-top:12px}.search-status{color:#ffb0b9!important;white-space:pre-wrap}@media(max-width:380px){.search-controls{flex-direction:column}.search-controls button{width:100%}}
 </style>
 <script src="public-config.js"></script>
 <script src="sheet-bridge.js"></script>
@@ -18,6 +20,7 @@
 <button id="connect">Connect to dinner system</button><p class="small">Get the private STAFF_KEY from the organiser. It is kept only in this page’s memory. Google may take a moment to connect on the first visit.</p></section>
 <section id="scan" hidden><div class="eyebrow">RECEPTION DESK</div><h2>Guest check-in</h2>
 <div class="counts"><div><strong id="arrived">0</strong><span>ARRIVED</span></div><div><strong id="total">0</strong><span>INVITED</span></div></div>
+<div class="name-search"><h3>Find guest by name</h3><p>No QR code or email? Search the name recorded in the guest list.</p><label for="guest-search">Guest name</label><div class="search-controls"><input id="guest-search" type="search" placeholder="Enter at least 2 characters" maxlength="100" autocomplete="off"><button id="search-guests">Search</button></div><p id="search-status" class="search-status" role="status" aria-live="polite"></p><div id="search-results"></div></div>
 <button id="camera">Start camera</button><button id="stop" class="secondary" hidden>Stop camera</button><div id="reader"></div>
 <label for="image">Or scan a saved QR image</label><input type="file" id="image" accept="image/*">
 <details><summary>Enter QR text manually</summary><label for="manual">SAINS QR token</label><input id="manual" placeholder="SAINS26:…" autocomplete="off"><button id="submit">Check in guest</button></details>
@@ -40,9 +43,13 @@ async function api(path,options={}){
 async function refresh(){const j=await(await api('/api/stats')).json();$('total').textContent=j.total;$('arrived').textContent=j.arrived;}
 async function stop(){if(scanner&&scanner.isScanning)await scanner.stop();$('stop').hidden=true;$('camera').disabled=false;}
 async function check(text){
- if(busy||!connected)return;busy=true;message('Checking guest…');
+ if(busy||searching||!connected)return;busy=true;message('Checking guest…');
  if(!/^SAINS26:[A-Za-z0-9_-]{32}$/.test(text.trim())){message('This is not a SAINS dinner QR. Select Retry to scan another pass.');$('retry').hidden=false;return;}
  try{const j=await(await api('/api/check-in',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({qr:text.trim(),staff})})).json();
+ await showGuestResult(j);
+ }catch(e){message(e.message+' Select Retry when ready. Repeat scans do not create another real arrival.');$('retry').hidden=false;}
+}
+async function showGuestResult(j){
  $('status').textContent=j.status==='checked_in'?'CHECK-IN CONFIRMED':'ALREADY CHECKED IN';
  if(j.is_test) $('status').textContent='TEST PASS · '+$('status').textContent;
  $('status').className='eyebrow '+(j.status==='checked_in'?'success':'warning');
@@ -52,7 +59,42 @@ async function check(text){
  $('result').scrollIntoView({behavior:'smooth',block:'center'});
  if(navigator.vibrate) navigator.vibrate(100);
  try{await refresh();}catch{message('Guest recorded. Attendance count could not refresh.');}
- }catch(e){message(e.message+' Select Retry when ready. Repeat scans do not create another real arrival.');$('retry').hidden=false;}
+}
+let searchVersion=0,searching=false;
+function clearSearch(){searchVersion++;$('search-results').replaceChildren();$('search-status').textContent='';}
+$('guest-search').oninput=clearSearch;
+$('guest-search').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('search-guests').click();}};
+$('search-guests').onclick=async()=>{
+ if(!connected||busy||searching)return;
+ const query=$('guest-search').value.trim();clearSearch();
+ if(query.length<2){$('search-status').textContent='Enter at least 2 characters of the guest name.';return;}
+ const version=searchVersion;searching=true;$('search-guests').disabled=true;
+ $('search-status').textContent='Searching guest list…';
+ try{
+  await stop();
+  const data=await bridge.request({action:'search_guests',key,query});
+  if(!connected||version!==searchVersion)return;
+  $('search-status').textContent=data.total?(data.truncated?'Showing the first 50 matches. Enter more of the name to narrow the results.':data.total+' matching guest(s). Confirm the name, agency and table before check-in.'):'No matching guest. Check the spelling or ask the organiser.';
+  for(const guest of data.guests){
+   const card=document.createElement('div');card.className='guest-match';
+   const title=document.createElement('h4');title.textContent=guest.name;card.append(title);
+   const detail=document.createElement('p');detail.textContent=[guest.designation,guest.agency].filter(Boolean).join(' · ')||'No designation or agency recorded';card.append(detail);
+   const table=document.createElement('p');table.textContent='Table: '+(guest.table_number||'Not assigned');card.append(table);
+   const state=document.createElement('p');state.textContent=guest.checked_in?'Already checked in'+(guest.checked_in_at?' · '+new Date(guest.checked_in_at).toLocaleString():''):'Not yet checked in';card.append(state);
+   const button=document.createElement('button');button.textContent=guest.checked_in?'View check-in / table':'Check in this guest';button.disabled=!guest.guest_id||!guest.table_number;
+   if(!guest.guest_id){const note=document.createElement('p');note.textContent='Ask the organiser to run setupSystem to prepare this guest.';card.append(note);}
+   button.onclick=()=>checkSelectedGuest(guest,version);card.append(button);$('search-results').append(card);
+  }
+ }catch(e){if(connected&&version===searchVersion)$('search-status').textContent=e.message;}
+ finally{searching=false;$('search-guests').disabled=false;}
+};
+async function checkSelectedGuest(guest,version){
+ if(!connected||busy||searching||version!==searchVersion)return;
+ if(!window.confirm('Confirm guest: '+guest.name+'\n'+[guest.designation,guest.agency].filter(Boolean).join(' · ')+'\nTable: '+guest.table_number+'\n\nRecord or view this guest’s check-in?'))return;
+ busy=true;message('Checking guest…');
+ try{const data=await bridge.request({action:'checkin_by_id',key,staff,guest_id:guest.guest_id,expected_name:guest.name,expected_table:guest.table_number});
+  if(!connected||version!==searchVersion)return;clearSearch();await showGuestResult(data);
+ }catch(e){if(connected){message(e.message+' Select Retry, then search again.');$('retry').hidden=false;}}
 }
 $('connect').onclick=async()=>{
  try{base=$('api').value.trim();key=$('key').value.trim();staff=$('staff').value.trim();if(!key||!staff)throw Error('Enter the staff key and your name.');
@@ -60,6 +102,7 @@ $('connect').onclick=async()=>{
  }catch(e){key='';bridge.close();message(e.message);}finally{$('connect').disabled=false;}
 };
 $('camera').onclick=async()=>{
+ if(busy||searching||!connected)return;
  $('camera').disabled=true;
  try{if(typeof Html5Qrcode==='undefined')throw Error('Scanner library could not load. Check the internet connection or use manual entry.');
  if(!navigator.mediaDevices)throw Error('Camera access requires HTTPS and a supported browser.');
@@ -70,8 +113,8 @@ $('camera').onclick=async()=>{
 $('stop').onclick=()=>stop().catch(e=>message(e.message));
 $('image').onchange=async e=>{const file=e.target.files[0];if(!file||busy)return;try{await stop();if(typeof Html5Qrcode==='undefined')throw Error('Scanner library could not load.');scanner=scanner||new Html5Qrcode('reader');await check(await scanner.scanFile(file,false));}catch(e){message(e.message||'QR image could not be read.');}finally{e.target.value='';}};
 $('submit').onclick=()=>check($('manual').value);
-$('next').onclick=()=>{busy=false;$('retry').hidden=true;$('result').hidden=true;$('manual').value='';message('Ready for the next guest.');$('reader').scrollIntoView({behavior:'smooth',block:'center'});};
+$('next').onclick=()=>{clearSearch();$('guest-search').value='';busy=false;$('retry').hidden=true;$('result').hidden=true;$('manual').value='';message('Ready for the next guest.');$('reader').scrollIntoView({behavior:'smooth',block:'center'});};
 $('retry').onclick=()=>{$('next').click();};
 $('export').onclick=async()=>{try{const blob=await(await api('/api/export')).blob(),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='attendance.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){message(e.message);}};
-$('disconnect').onclick=async()=>{try{await stop();}catch{}bridge.close();key='';connected=false;busy=false;$('retry').hidden=true;$('scan').hidden=true;$('result').hidden=true;$('setup').hidden=false;message('Disconnected.');};
+$('disconnect').onclick=async()=>{clearSearch();$('guest-search').value='';try{await stop();}catch{}bridge.close();key='';connected=false;busy=false;$('retry').hidden=true;$('scan').hidden=true;$('result').hidden=true;$('setup').hidden=false;message('Disconnected.');};
 </script></body></html>
