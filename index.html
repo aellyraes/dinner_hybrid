@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sarawak Information Systems Email Scanner</title>
+<style>
+:root{color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#f5f5f5;background:#09090b;--red:#e3293d;--muted:#a9a9b2}*{box-sizing:border-box}body{margin:0;min-height:100vh;min-height:100dvh;background:radial-gradient(ellipse at 50% 0,rgba(190,25,47,.12),transparent 55%),#09090b}main{width:100%;max-width:720px;margin:auto;padding:40px 24px 24px}.topbar{max-width:1240px;margin:auto;padding:24px 28px 0}.dashboard-link{display:inline-flex;align-items:center;gap:10px;padding:12px 17px;border:1px solid #533039;border-radius:10px;background:#211014;color:#fff;text-decoration:none;font-size:14px;font-weight:650;min-height:46px}.dashboard-link:hover{background:#38151d;border-color:var(--red)}.dashboard-link svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}header{text-align:center;margin:0 0 30px}header .eyebrow{margin-bottom:12px}h1{max-width:650px;margin:0 auto;font-size:clamp(25px,4.5vw,37px);line-height:1.22;letter-spacing:-.035em;font-weight:750;text-wrap:balance}header p{max-width:470px;margin:16px auto 0;font-size:14px}p{color:var(--muted);line-height:1.65}.eyebrow{letter-spacing:.16em;color:#f46b78;font-size:11px;font-weight:700}section{background:#121215;border:1px solid #2b2b31;border-radius:18px;padding:28px;margin:18px 0;box-shadow:0 16px 45px #0003}#setup{border-top:3px solid var(--red)}h2{font-size:20px;letter-spacing:-.02em;margin:0 0 8px}label{display:block;margin:20px 0 8px;color:#dedee3;font-size:13px;font-weight:550}input,button{font:inherit;width:100%;padding:14px 15px;border-radius:10px;min-width:0;min-height:48px}input{background:#09090c;border:1px solid #36363f;color:#fff;font-size:16px}input::placeholder{color:#74747e}input:focus{outline:2px solid #e3293d;outline-offset:2px}button{cursor:pointer;border:1px solid transparent;background:#d91f35;color:#fff;font-weight:700;margin-top:16px;transition:background .15s}button:hover{background:#ee3046}button:disabled{opacity:.5;cursor:default}.secondary{background:#202025;border-color:#38383f;color:#e8e8ed}.secondary:hover{background:#2b2b33}a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #fb7b88;outline-offset:4px}.counts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}.counts div{background:#0b0b0e;border:1px solid #29292f;border-radius:12px;padding:18px}.counts strong{font-size:30px;display:block}.counts span{font-size:11px;letter-spacing:.1em;color:var(--muted)}[hidden]{display:none!important}#reader{width:100%;overflow:hidden;border-radius:12px;margin-top:18px}#reader video,#reader img{max-width:100%!important}#result{text-align:center;border-color:#b52537;background:linear-gradient(145deg,#211014,#121215 70%)}.table{font-size:clamp(48px,12vw,76px);color:#ff5267;font-weight:800;line-height:1.15;margin:12px 0;overflow-wrap:anywhere}#guest{font-size:24px;overflow-wrap:anywhere}.warning{color:#ffd089}.success{color:#79e2ac}#message{white-space:pre-wrap;overflow-wrap:anywhere;color:#ffb0b9;min-height:24px;font-size:14px}.small{font-size:12px}details{margin-top:22px}summary{cursor:pointer;color:#d3d3dd;padding:6px 0}footer{font-size:11px;color:#797982;text-align:center;padding:20px 8px;border-top:1px solid #242429;margin-top:26px}input[type=file]{font-size:13px;padding:10px}input::file-selector-button{background:#29292f;color:white;border:0;border-radius:5px;padding:8px;margin-right:8px}@media(max-width:520px){.topbar{padding:16px 16px 0}main{padding:28px 16px 16px}header{margin-bottom:24px}section{padding:22px 18px;border-radius:14px}.dashboard-link{font-size:13px;padding:10px 13px}header p{font-size:13px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+
+.name-search{margin:24px 0;padding:22px 0;border-top:1px solid #33333c;border-bottom:1px solid #33333c}.name-search h3{margin:0;font-size:18px}.name-search p{margin:8px 0;font-size:13px}.search-controls{display:flex;gap:10px;align-items:stretch;margin-top:12px}.search-controls input{flex:1;width:auto}.search-controls button{width:auto;margin:0;min-width:100px}.guest-match{padding:16px;margin:12px 0;background:#0b0b0e;border:1px solid #34343d;border-radius:10px;overflow-wrap:anywhere}.guest-match h4{margin:0 0 6px;font-size:16px}.guest-match p{margin:4px 0}.guest-match button{font-size:14px;margin-top:12px}.search-status{color:#ffb0b9!important;white-space:pre-wrap}@media(max-width:380px){.search-controls{flex-direction:column}.search-controls button{width:100%}}
+</style>
+<script src="public-config.js"></script>
+<script src="sheet-bridge.js?v=20261026-shared3"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<style>
+.sains-brand{display:flex;justify-content:center;padding:26px 20px 12px;width:100%}.sains-brand img{display:block;width:280px;max-width:80vw;height:auto}
+footer.developer-contact{width:calc(100% - 32px);max-width:900px;margin:32px auto 0;padding:24px 16px 28px;border-top:1px solid #36363f;text-align:center;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.85;letter-spacing:0;color:#a9a9b2;overflow-wrap:anywhere}
+.developer-contact strong{display:inline-block;color:#f5f5f5;margin-bottom:5px}.developer-contact a{color:#e8e8ed;text-decoration:underline;text-underline-offset:3px}.developer-contact a:hover{color:#ff5267}
+@media(max-width:520px){.sains-brand{padding-top:20px}.sains-brand img{width:220px}footer.developer-contact{font-size:11px}}
+</style><style>.topbar{display:flex;flex-wrap:wrap;gap:10px}.topbar .dashboard-link{justify-content:center}@media(max-width:420px){.topbar .dashboard-link{flex:1;font-size:12px;padding:10px}}</style></head><body>
+<nav class="topbar" aria-label="Main navigation"><a class="dashboard-link" href="dashboard.html">Open dashboard</a><a class="dashboard-link" href="guest-info.html#layout" target="_blank" rel="noopener">View Table Layout</a></nav>
+<main><div class="sains-brand"><img src="sains-anniversary-logo.png" alt="SAINS 35 years anniversary"></div><header><div class="eyebrow">STAFF CHECK-IN PORTAL</div><h1>Sarawak Information Systems Email Scanner</h1><p>Scan a guest’s invitation to view their table and record their arrival.</p></header>
+<section id="setup"><h2>Staff connection</h2>
+<label for="api">Apps Script Web app URL</label><input id="api" type="url" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off">
+<label for="key">Private staff key</label><input id="key" type="password" autocomplete="off">
+<label for="staff">Your staff name</label><input id="staff" maxlength="80" autocomplete="name">
+<button id="connect">Connect to dinner system</button><p class="small">Get the private STAFF_KEY from the organiser. Your login is reused between the scanner and dashboard in this tab. Google may take a moment to connect on the first visit.</p></section>
+<section id="scan" hidden><div class="eyebrow">RECEPTION DESK</div><h2>Guest check-in</h2>
+<div class="counts"><div><strong id="arrived">0</strong><span>ARRIVED</span></div><div><strong id="total">0</strong><span>INVITED</span></div></div>
+<div class="name-search"><h3>Find guests</h3><p>Search by name, table number or agency. Examples: Aelly, Table 7, VVIP 1 or Sarawak Energy.</p><label for="guest-search">Guest name, table number or agency</label><div class="search-controls"><input id="guest-search" type="search" placeholder="Name, table number or agency" maxlength="100" autocomplete="off"><button id="search-guests">Search</button></div><p id="search-status" class="search-status" role="status" aria-live="polite"></p><div id="search-results"></div></div>
+<button id="camera">Start camera</button><button id="stop" class="secondary" hidden>Stop camera</button><div id="reader"></div>
+<label for="image">Or scan a saved QR image</label><input type="file" id="image" accept="image/*">
+<details><summary>Enter QR text manually</summary><label for="manual">SAINS QR token</label><input id="manual" placeholder="SAINS26:…" autocomplete="off"><button id="submit">Check in guest</button></details>
+<button id="retry" class="secondary" hidden>Retry / scan next guest</button>
+<button id="export" class="secondary">Download attendance CSV</button><button id="disconnect" class="secondary">Log out</button></section>
+<section id="result" hidden aria-live="polite"><div id="status" class="eyebrow"></div><h2 id="guest"></h2><div class="small">ASSIGNED TABLE</div><div id="table" class="table"></div><p id="time"></p><button id="next">Scan next guest</button><button id="find-next" class="secondary">Find another guest</button></section>
+<p id="message" role="status" aria-live="polite"></p>
+<footer class="developer-contact"><strong>Developer Contact:</strong><br>Aelly Najwa Binti Ahmad Rais<br>ECS Unit<br>Sarawak Information Systems (SAINS)<br><a href="mailto:aellynarais@sains.com.my">aellynarais@sains.com.my</a><br><a href="tel:+601123450059">01123450059</a></footer></main>
+<div id="dashboard-view" hidden style="width:100%;min-height:100vh"><iframe id="dashboard-frame" title="Attendance dashboard" style="width:100%;height:100vh;height:100dvh;border:0;display:block" hidden></iframe><p id="dashboard-loading" role="status" style="padding:24px;text-align:center">Opening dashboard…</p></div>
+<script>
+ 'use strict';
+const $=id=>document.getElementById(id);
+let base='',key='',staff='',scanner=null,busy=false,connected=false;
+let searching=false,cameraStarting=false,decoding=false,stopPromise=null,session=0,searchVersion=0;
+const bridge=new SainsSheetBridge();
+const staffSession=SainsStaffSession;
+if(window.SAINS_APPS_SCRIPT_URL)$('api').value=window.SAINS_APPS_SCRIPT_URL;
+function message(text){$('message').textContent=text;}
+function active(s){return connected&&s===session;}
+function working(){return busy||searching||cameraStarting||decoding;}
+function syncControls(){
+ const blocked=working();
+ for(const id of ['search-guests','submit','image','next','find-next','retry'])$(id).disabled=blocked||!connected;
+ $('camera').disabled=blocked||!connected||!!(scanner&&scanner.isScanning);
+ $('stop').disabled=cameraStarting;
+ for(const button of $('search-results').querySelectorAll('button'))button.disabled=blocked||button.dataset.unavailable==='true';
+}
+function clearSearch(){searchVersion++;$('search-results').replaceChildren();$('search-status').textContent='';}
+function clearResult(){$('result').hidden=true;$('retry').hidden=true;$('manual').value='';}
+async function api(path,options={}){
+ const actions={'/api/stats':'stats','/api/check-in':'checkin','/api/export':'export'};
+ const data=await bridge.request({action:actions[path],key,...(options.body?JSON.parse(options.body):{})});
+ return {json:async()=>data,blob:async()=>new Blob([data.csv||''],{type:'text/csv;charset=utf-8'})};
+}
+async function refresh(s=session){const j=await(await api('/api/stats')).json();if(active(s)){$('total').textContent=j.total;$('arrived').textContent=j.arrived;}}
+async function stop(){
+ if(stopPromise)return stopPromise;
+ stopPromise=(async()=>{try{if(scanner&&scanner.isScanning)await scanner.stop();}finally{$('stop').hidden=!(scanner&&scanner.isScanning);}})();
+ try{await stopPromise;}finally{stopPromise=null;syncControls();}
+}
+function showGuestResult(j){
+ if(!j.is_test)staffSession.arrival(base);
+ $('status').textContent=(j.is_test?'TEST PASS · ':'')+(j.status==='checked_in'?'CHECK-IN CONFIRMED':'ALREADY CHECKED IN');
+ $('status').className='eyebrow '+(j.status==='checked_in'?'success':'warning');
+ $('guest').textContent=j.name;$('table').textContent=j.table_number;
+ $('time').textContent='Recorded '+new Date(j.checked_in_at).toLocaleString('en-MY',{timeZone:'Asia/Kuala_Lumpur'})+' · '+j.checked_in_by;
+ $('result').hidden=false;message('');$('result').scrollIntoView({behavior:'smooth',block:'center'});
+ if(navigator.vibrate)navigator.vibrate(100);
+ // Count refresh must never hold the check-in controls locked.
+ refresh().catch(()=>{});
+}
+async function check(text){
+ if(!connected||working())return;
+ const s=session;busy=true;clearResult();clearSearch();syncControls();message('Checking guest…');
+ try{
+  // Stop repeat camera callbacks while keeping the staff connection open.
+  await stop();if(!active(s))return;
+  const qr=String(text||'').trim();
+  if(!/^SAINS26:[A-Za-z0-9_-]{32}$/.test(qr))throw Error('This is not a SAINS dinner QR.');
+  const j=await(await api('/api/check-in',{body:JSON.stringify({qr,staff})})).json();
+  if(active(s))showGuestResult(j);
+ }catch(e){if(active(s)){message(e.message+' You can search by name, table or agency or scan again. If the request timed out, check the same guest again; existing arrivals are preserved.');$('retry').hidden=false;}}
+ finally{if(s===session){busy=false;syncControls();}}
+}
+$('guest-search').oninput=clearSearch;
+$('guest-search').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('search-guests').click();}};
+$('search-guests').onclick=async()=>{
+ if(!connected||working())return;
+ const query=$('guest-search').value.trim();clearSearch();
+ if(!query || query.length>100 || (query.length<2 && !/^\d$/.test(query))){$('search-status').textContent='Enter at least 2 characters, or a table number such as 7 (maximum 100 characters).';return;}
+ const s=session,version=searchVersion;searching=true;clearResult();syncControls();$('search-status').textContent='Searching guest list…';
+ try{
+  await stop();if(!active(s))return;
+  const data=await bridge.request({action:'search_guests',key,query});
+  if(!active(s)||version!==searchVersion)return;
+  $('search-status').textContent=data.total?(data.truncated?'Some matches are not shown. Narrow your search by name, table or agency, table or agency.':data.total+(data.match_type==='table'?' guest(s) at this table. ':' matching guest(s). ')+'Confirm the name, agency and table before check-in.'):'No matching guests. Check the name, agency or exact table label.';
+  for(const guest of data.guests){
+   const card=document.createElement('div');card.className='guest-match';
+   const title=document.createElement('h4');title.textContent=guest.name;card.append(title);
+   const detail=document.createElement('p');detail.textContent=[guest.designation,guest.agency].filter(Boolean).join(' · ')||'No designation or agency recorded';card.append(detail);
+   const table=document.createElement('p');table.textContent='Table: '+(guest.table_number||'Not assigned');card.append(table);
+   const state=document.createElement('p');state.textContent=guest.checked_in?'Already checked in'+(guest.checked_in_at?' · '+new Date(guest.checked_in_at).toLocaleString():''):'Not yet checked in';card.append(state);
+   const button=document.createElement('button');button.textContent=guest.checked_in?'View check-in / table':'Check in this guest';button.dataset.unavailable=String(!guest.guest_id||!guest.table_number);button.disabled=button.dataset.unavailable==='true';
+   if(!guest.guest_id){const note=document.createElement('p');note.textContent='Ask the organiser to run setupSystem to prepare this guest.';card.append(note);}
+   button.onclick=()=>checkSelectedGuest(guest,version);card.append(button);$('search-results').append(card);
+  }
+ }catch(e){if(active(s)&&version===searchVersion)$('search-status').textContent=e.message+' Try Search again.';}
+ finally{if(s===session){searching=false;syncControls();}}
+};
+async function checkSelectedGuest(guest,version){
+ if(!connected||working()||version!==searchVersion)return;
+ if(!window.confirm('Confirm guest: '+guest.name+'\n'+[guest.designation,guest.agency].filter(Boolean).join(' · ')+'\nTable: '+guest.table_number+'\n\nRecord or view this guest’s check-in?'))return;
+ const s=session;busy=true;clearResult();syncControls();message('Checking guest…');
+ try{
+  const data=await bridge.request({action:'checkin_by_id',key,staff,guest_id:guest.guest_id,expected_name:guest.name,expected_table:guest.table_number});
+  if(active(s)){clearSearch();showGuestResult(data);}
+ }catch(e){if(active(s)){message(e.message+' Search again or scan the guest QR. Repeat check-ins preserve the first arrival.');$('retry').hidden=false;}}
+ finally{if(s===session){busy=false;syncControls();}}
+}
+$('connect').onclick=async()=>{
+ if(connected||$('connect').disabled)return;
+ const s=++session;
+ try{
+  base=$('api').value.trim();key=$('key').value.trim();staff=$('staff').value.trim();
+  if(!key||!staff)throw Error('Enter the staff key and your name.');
+  $('connect').disabled=true;message('Connecting to Google attendance…');
+  await bridge.connect(base);
+  const j=await(await api('/api/stats')).json();if(s!==session)return;
+  const remembered=staffSession.save({endpoint:base,key,staff});
+  connected=true;$('total').textContent=j.total;$('arrived').textContent=j.arrived;
+  $('key').value='';$('setup').hidden=true;$('scan').hidden=false;message(remembered?'Connected. Scan a QR or search by name, table or agency.':'Connected. Scanner and dashboard share this login. Your browser may require login after a page reload.');syncControls();
+ }catch(e){if(s===session){if(staffSession.isAuthError(e))staffSession.clear();key='';connected=false;bridge.close();$('setup').hidden=false;message(e.message);}}
+ finally{if(s===session)$('connect').disabled=false;}
+};
+$('camera').onclick=async()=>{
+ if(!connected||working()||(scanner&&scanner.isScanning))return;
+ const s=session;cameraStarting=true;clearResult();clearSearch();syncControls();
+ try{
+  if(typeof Html5Qrcode==='undefined')throw Error('Scanner library could not load. Use guest search or check your internet.');
+  if(!navigator.mediaDevices)throw Error('Camera access requires HTTPS and a supported browser.');
+  scanner=scanner||new Html5Qrcode('reader');
+  await scanner.start({facingMode:'environment'},{fps:8,qrbox:(width,height)=>{const size=Math.max(50,Math.min(220,width-30,height-30));return {width:size,height:size};}},text=>{if(!cameraStarting)check(text);},()=>{});
+  if(!active(s)){try{await stop();}catch{}return;}
+  $('stop').hidden=false;message('Point the camera at the guest’s QR code.');
+ }catch(e){if(active(s))message('Camera could not start: '+(e.message||String(e))+' You can use guest search.');}
+ finally{cameraStarting=false;syncControls();}
+};
+$('stop').onclick=()=>stop().catch(e=>message(e.message));
+$('image').onchange=async e=>{
+ const file=e.target.files[0];if(!file||!connected||working()){e.target.value='';return;}
+ const s=session;let text;decoding=true;syncControls();
+ try{await stop();if(!active(s))return;if(typeof Html5Qrcode==='undefined')throw Error('Scanner library could not load.');scanner=scanner||new Html5Qrcode('reader');text=await scanner.scanFile(file,false);}
+ catch(e){if(active(s))message(e.message||'QR image could not be read. You can search by name, table or agency.');}
+ finally{e.target.value='';if(s===session){decoding=false;syncControls();}}
+ if(text&&active(s))await check(text);
+};
+$('submit').onclick=()=>check($('manual').value);
+$('next').onclick=()=>{if(working()||!connected)return;clearSearch();$('guest-search').value='';clearResult();$('camera').click();};
+$('find-next').onclick=()=>{if(working()||!connected)return;clearResult();clearSearch();$('guest-search').value='';$('guest-search').scrollIntoView({behavior:'smooth',block:'center'});$('guest-search').focus();};
+$('retry').onclick=()=>{$('next').click();};
+$('export').onclick=async()=>{const s=session;try{const blob=await(await api('/api/export')).blob();if(!active(s))return;const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='attendance.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){if(active(s))message(e.message);}};
+$('disconnect').onclick=async()=>{
+ dashboardLoaded=false;dashboardFrame.removeAttribute('src');dashboardFrame.hidden=true;$('dashboard-loading').hidden=false;scannerView();
+ staffSession.logout(base);++session;connected=false;key='';busy=false;searching=false;decoding=false;clearSearch();$('guest-search').value='';bridge.close();
+ $('retry').hidden=true;$('scan').hidden=true;$('result').hidden=true;$('setup').hidden=false;syncControls();
+ try{await stop();}catch{}message('Logged out.');
+};
+
+function restoreStaffSession(){
+ const saved=staffSession.read();
+ if(!saved)return;
+ $('api').value=saved.endpoint;$('key').value=saved.key;$('staff').value=saved.staff;
+ if(saved.staff){$('setup').hidden=true;message('Restoring your staff session…');$('connect').click();}
+ else message('Your key is remembered. Enter your usher name and connect.');
+}
+window.addEventListener('sains-staff-event',e=>{
+ if(e.detail.endpoint!==base)return;
+ if(e.detail.type==='logout'&&(connected||key))$('disconnect').click();
+ else if(e.detail.type==='arrival'&&connected&&!document.hidden)refresh().catch(()=>{});
+});
+window.addEventListener('pageshow',e=>{
+ if(!e.persisted)return;
+ if(!staffSession.read()&&(connected||key))$('disconnect').click();
+ else if(connected)refresh().catch(()=>{});
+ else restoreStaffSession();
+});
+// Keep the scanner document and its authenticated connection alive.
+// Dashboard read-only requests reuse the scanner's established Google bridge.
+// No second Google iframe and no credential in URLs or public configuration.
+window.SainsDashboardConnection=Object.freeze({
+ isConnected:()=>connected&&!!bridge.peer,
+ connect:async endpoint=>{
+  if(!connected||!bridge.peer)throw Error('Scanner connection is unavailable. Return to the scanner to reconnect.');
+  if(endpoint!==base)throw Error('Dashboard endpoint does not match the scanner.');
+ },
+ request:async payload=>{
+  if(!connected||!bridge.peer)throw Error('Scanner connection is unavailable. Return to the scanner to reconnect.');
+  if(!payload||!['stats','dashboard','export'].includes(payload.action))throw Error('Unsupported dashboard request.');
+  if(payload.key!==key)throw Error('Incorrect access key.');
+  const activeSession=session;
+  const data=await bridge.request({action:payload.action,key});
+  if(activeSession!==session||!connected)throw Error('Staff session ended.');
+  return data;
+ }
+});
+const dashboardFrame=$('dashboard-frame');let dashboardLoaded=false;
+function shareDashboardLogin(){
+ if(connected&&dashboardLoaded)dashboardFrame.contentWindow.postMessage({type:'sains-portal-login',endpoint:base,key,staff},location.origin);
+}
+function scannerView(){
+ if(dashboardLoaded)dashboardFrame.contentWindow.postMessage({type:'sains-portal-visible',visible:false},location.origin);
+ $('dashboard-view').hidden=true;document.querySelector('main').hidden=false;document.querySelector('.topbar').hidden=false;
+ if(connected)refresh().catch(()=>{});
+}
+function dashboardView(){
+ document.querySelector('main').hidden=true;document.querySelector('.topbar').hidden=true;$('dashboard-view').hidden=false;
+ if(!dashboardFrame.getAttribute('src'))dashboardFrame.src='dashboard.html?v=20261026-shared3';
+ else shareDashboardLogin();
+}
+dashboardFrame.addEventListener('load',()=>{dashboardLoaded=true;dashboardFrame.hidden=false;$('dashboard-loading').hidden=true;shareDashboardLogin();});
+window.addEventListener('message',e=>{
+ if(e.origin!==location.origin||e.source!==dashboardFrame.contentWindow)return;
+ if(e.data?.type==='sains-portal-scanner')scannerView();
+ if(e.data?.type==='sains-portal-logout'){$('disconnect').click();scannerView();}
+});
+document.querySelector('.dashboard-link').addEventListener('click',async e=>{
+ e.preventDefault();
+ if(!connected){message('Log in once below, then open the dashboard.');$('key').focus();return;}
+ if(working()){message('Please wait for the current guest request to finish.');return;}
+ try{await stop();}catch{}if(connected)dashboardView();
+});
+restoreStaffSession();
+</script></body></html>

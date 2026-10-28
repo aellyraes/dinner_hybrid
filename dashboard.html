@@ -1,0 +1,152 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SAINS Dinner · Attendance</title>
+<style>:root{color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:#09090b;color:#f5f5f5;--red:#e3293d;--muted:#a9a9b2}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#b7192e1c,transparent 55%),#09090b}header{max-width:1240px;margin:auto;padding:24px 24px 28px;text-align:center}header p{color:#f46b78;font-size:11px;letter-spacing:.16em;font-weight:700;margin:26px 0 12px}h1{font-size:clamp(25px,4vw,37px);line-height:1.2;letter-spacing:-.035em;margin:8px auto;text-wrap:balance}nav{text-align:left}.nav-button{display:inline-flex;align-items:center;gap:9px;min-height:46px;background:#211014;border:1px solid #533039;border-radius:10px;padding:12px 17px;color:white;text-decoration:none;font-size:14px;font-weight:650}.nav-button:hover{background:#38151d;border-color:var(--red)}main{max-width:1240px;margin:auto;padding:0 24px 28px}a{color:inherit}section,.metric{background:#121215;border:1px solid #2b2b31;border-radius:16px;padding:24px;margin-bottom:20px}#connection{border-top:3px solid var(--red)}input,select,button{font:inherit;padding:12px 14px;border:1px solid #36363f;border-radius:9px;min-height:46px;min-width:0}input,select{background:#09090c;color:#fff;font-size:16px;max-width:100%}button{background:#d91f35;color:#fff;cursor:pointer;font-weight:650}button:hover{background:#ee3046}button:disabled{opacity:.45;cursor:default}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #fb7b88;outline-offset:3px}label{display:inline-grid;gap:8px;margin:8px 12px 10px 0;font-size:13px;color:#dedee3;max-width:100%}#connection>button{margin:8px 8px 8px 0}#disconnect,#refresh,#export,#clear-table{background:#202025;border-color:#38383f}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.metric{font-size:13px;color:#aaaab5;margin-bottom:20px;position:relative;overflow:hidden}.metric:before{content:'';display:block;width:25px;height:3px;background:var(--red);margin-bottom:12px;border-radius:4px}.metric b{display:block;font-size:clamp(28px,4vw,38px);color:#fff;margin-top:10px;letter-spacing:-.03em}.layout{display:grid;gap:0}.section-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:8px}.section-note{font-size:12px;color:var(--muted);line-height:1.6;margin:0 0 20px}#tables{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}.table-card{display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;background:#0d0d10;border:1px solid #303038;border-radius:14px;padding:24px 12px 16px;min-width:0}.table-card:hover{background:#1b1116;border-color:#a43143}.table-card[aria-pressed=true]{border-color:#ff5267;background:#271018;box-shadow:0 0 0 1px #ff5267}.table-face{width:112px;height:112px;border-radius:50%;border:2px solid #56313a;background:radial-gradient(circle,#352027,#1a1115);position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;margin:10px}.table-label{font-size:15px;line-height:1.25;max-width:88px;overflow-wrap:anywhere;text-align:center;color:#fff}.table-ratio{font-size:12px;color:#ffc0c8}.seat{position:absolute;left:calc(50% + var(--x));top:calc(50% + var(--y));width:11px;height:11px;border-radius:50%;background:#35353e;border:2px solid #0d0d10;transform:translate(-50%,-50%)}.seat.arrived{background:#ee4056}.table-caption{font-size:11px;line-height:1.4;color:#aaaab5;text-align:center;font-weight:400}.table-card progress{width:100%;height:5px;accent-color:#e3293d}.empty{color:#a9a9b2;font-size:14px;padding:20px 0;grid-column:1/-1}.controls{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.controls input{flex:1 1 220px}.controls select{flex:0 1 180px}.scroll{overflow:auto;border:1px solid #292930;border-radius:10px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:16px 14px;border-bottom:1px solid #292930;vertical-align:top}th{background:#19191e;color:#aaaab5;font-size:10px;letter-spacing:.08em;white-space:nowrap}td{overflow-wrap:anywhere;color:#d8d8df}tbody tr:hover{background:#1b171c}tbody tr:last-child td{border-bottom:0}.pill{color:#80dfaf;font-weight:650}.status{font-size:12px;color:#a9a9b2;line-height:1.6;overflow-wrap:anywhere}.error{color:#ff9eac}h2{font-size:19px;letter-spacing:-.02em;margin:0 0 8px}#table-selection{color:#f88e9b;font-size:13px;margin:6px 0}#clear-table{font-size:12px;padding:8px 12px;min-height:38px}[hidden]{display:none!important}footer{text-align:center;color:#777780;font-size:11px;padding:10px 24px 24px}@media(max-width:700px){header{padding:16px 16px 24px}main{padding:0 16px 20px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{padding:18px;margin-bottom:12px}section{padding:20px 16px}.controls button{flex:1 1 130px}#connection label{display:grid;margin-right:0}#endpoint,#key{width:100%}.scroll table{min-width:620px}#tables{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.table-card{padding:18px 5px 12px}.table-face{width:96px;height:96px;margin:9px}.table-label{max-width:76px;font-size:13px}.table-caption{font-size:10px}}@media(max-width:350px){#tables{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+/* Consistent form and action sizing. */
+.connection-fields{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) 120px 120px;gap:12px;align-items:end;margin:20px 0}
+#connection .connection-fields label{display:grid;gap:8px;margin:0;width:100%;min-width:0}
+#connection .connection-fields input{width:100%;height:48px;min-height:48px}
+#connection .connection-fields button{width:100%;height:48px;min-height:48px;margin:0;padding:0 14px;font-size:14px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center}
+.nav-button,.controls button{height:48px;font-size:14px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center}
+.controls input,.controls select{height:48px}
+@media(max-width:1000px){.connection-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.connection-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#connection .connection-fields label{grid-column:1/-1}}
+</style>
+<div class="sains-brand"><img src="sains-anniversary-logo.png" alt="SAINS 35 years anniversary"></div><header><nav><a class="nav-button" href="index.html">← Open scanner</a></nav><p>SAINS 35TH ANNIVERSARY DINNER</p><h1>Attendance dashboard</h1></header>
+<main><section id="connection"><h2>Connect to attendance</h2><div class="connection-fields"><label>Apps Script web app URL<input id="endpoint" type="url" size="48"></label><label>Staff access key<input id="key" type="password" autocomplete="off"></label><button id="connect">Connect</button><button id="disconnect" disabled>Log out</button></div><p id="status" class="status" role="status">Connect to view live attendance. Updates automatically about every 10 seconds while this page is visible.</p></section>
+<div class="metrics"><div class="metric">Invited guests<b id="total">—</b></div><div class="metric">Checked in<b id="arrived">—</b></div><div class="metric">Still to arrive<b id="remaining">—</b></div><div class="metric">Attendance<b id="rate">—</b></div></div>
+<div class="layout"><section><div class="section-top"><h2>Attendance by table</h2><button id="clear-table" hidden>Show all tables</button></div><p class="section-note">Select a table to view its guests. Red markers show arrivals; grey markers show guests still to arrive. Markers represent guest counts, not seating positions. Up to 10 markers are shown per table.</p><div id="tables"><div class="empty">Connect to load your tables.</div></div></section><section><h2>Guest attendance</h2><p id="table-selection" hidden></p><div class="controls"><input id="search" aria-label="Search name or agency" placeholder="Search name or agency"><select id="filter" aria-label="Arrival filter"><option value="all">Everyone</option><option value="yes">Checked in</option><option value="no">Not yet arrived</option></select><button id="refresh" disabled>Refresh</button><button id="export" disabled>Download CSV</button></div><div class="scroll"><table><thead><tr><th>GUEST / AGENCY</th><th>TABLE</th><th>STATUS</th><th>ARRIVAL</th><th>USHER</th></tr></thead><tbody id="guests"><tr><td colspan="5">Connect to load guests.</td></tr></tbody></table></div></section></div></main><footer class="developer-contact"><strong>Developer Contact:</strong><br>Aelly Najwa Binti Ahmad Rais<br>ECS Unit<br>Sarawak Information Systems (SAINS)<br><a href="mailto:aellynarais@sains.com.my">aellynarais@sains.com.my</a><br><a href="tel:+601123450059">01123450059</a></footer>
+<script src="public-config.js"></script><script src="sheet-bridge.js?v=20261026-shared3"></script><script>
+'use strict';const el=id=>document.getElementById(id);let bridge,rows=[],staffKey='',timer,busy=false,selectedTable=null;
+const inPortal=window.parent!==window;let portalVisible=!inPortal;
+if(inPortal){
+ // Local adapter: closing this view must never close the scanner connection.
+ bridge={
+  get peer(){return window.parent.SainsDashboardConnection?.isConnected()||null;},
+  async connect(endpoint){
+   const connection=window.parent.SainsDashboardConnection;
+   if(!connection)throw Error('Scanner update is missing. Reload the scanner page once.');
+   await connection.connect(endpoint);
+  },
+  async request(payload){
+   const connection=window.parent.SainsDashboardConnection;
+   if(!connection)throw Error('Scanner update is missing. Reload the scanner page once.');
+   return connection.request(payload);
+  },
+  close(){}
+ };
+}else bridge=new SainsSheetBridge();
+
+const staffSession=SainsStaffSession;let generation=0,connected=false,connecting=false,endpoint='',failures=0;
+el('endpoint').value=window.SAINS_APPS_SCRIPT_URL||'';
+function status(text,error=false){el('status').textContent=text;el('status').className='status'+(error?' error':'');}
+function time(value){const d=new Date(value);return value&&!isNaN(d)?d.toLocaleTimeString('en-MY',{timeZone:'Asia/Kuala_Lumpur',hour:'2-digit',minute:'2-digit',second:'2-digit'}):'—';}
+function cell(tr,value,cls){const td=document.createElement('td');td.textContent=value||'—';if(cls)td.className=cls;tr.append(td);}
+function render(){const arrived=rows.filter(r=>r.arrived).length;el('total').textContent=rows.length;el('arrived').textContent=arrived;el('remaining').textContent=rows.length-arrived;el('rate').textContent=rows.length?Math.round(arrived/rows.length*100)+'%':'0%';
+ const groups=new Map();for(const r of rows){const k=r.table||'Unassigned';if(!groups.has(k))groups.set(k,{total:0,arrived:0});const g=groups.get(k);g.total++;g.arrived+=r.arrived?1:0;}
+ if(selectedTable!==null&&!groups.has(selectedTable))selectedTable=null;
+ const focusTable=document.activeElement?.dataset?.table;
+ el('tables').replaceChildren();
+ for(const [name,g] of [...groups].sort((a,b)=>a[0].localeCompare(b[0],undefined,{numeric:true}))){
+  const card=document.createElement('button');card.type='button';card.className='table-card';card.dataset.table=name;card.setAttribute('aria-pressed',String(selectedTable===name));card.setAttribute('aria-label',name+': '+g.arrived+' of '+g.total+' guests checked in. Filter guest list.');
+  const face=document.createElement('span');face.className='table-face';
+  const label=document.createElement('span');label.className='table-label';label.textContent=name;
+  const ratio=document.createElement('span');ratio.className='table-ratio';ratio.textContent=g.arrived+' / '+g.total;face.append(label,ratio);
+  const count=Math.min(g.total,10),arrivedDots=g.total>10?Math.round(g.arrived/g.total*count):g.arrived;
+  for(let i=0;i<count;i++){const dot=document.createElement('span');dot.className='seat'+(i<arrivedDots?' arrived':'');dot.setAttribute('aria-hidden','true');const angle=(i/count)*Math.PI*2-Math.PI/2;dot.style.setProperty('--x',(Math.cos(angle)*60)+'%');dot.style.setProperty('--y',(Math.sin(angle)*60)+'%');face.append(dot);}
+  const caption=document.createElement('span');caption.className='table-caption';caption.textContent=g.arrived+' checked in · '+(g.total-g.arrived)+' pending';
+  const progress=document.createElement('progress');progress.max=g.total;progress.value=g.arrived;progress.setAttribute('aria-label',name+' attendance');card.append(face,caption,progress);
+  card.onclick=()=>{selectedTable=selectedTable===name?null:name;render();};el('tables').append(card);
+ }
+ if(!groups.size){const empty=document.createElement('div');empty.className='empty';empty.textContent=staffKey?'No named guests found in the Sheet.':'Connect to load your tables.';el('tables').append(empty);}
+ el('clear-table').hidden=selectedTable===null;el('table-selection').hidden=selectedTable===null;el('table-selection').textContent=selectedTable===null?'':'Showing guests at '+selectedTable;
+ if(focusTable){[...el('tables').children].find(c=>c.dataset.table===focusTable)?.focus({preventScroll:true});}
+ const q=el('search').value.toLowerCase(),f=el('filter').value;const shown=rows.filter(r=>(selectedTable===null||(r.table||'Unassigned')===selectedTable)&&(r.name+' '+r.agency).toLowerCase().includes(q)&&(f==='all'||r.arrived===(f==='yes'))).sort((a,b)=>(b.time||'').localeCompare(a.time||''));el('guests').replaceChildren();for(const r of shown){const tr=document.createElement('tr');cell(tr,r.name+(r.agency?' · '+r.agency:''));cell(tr,r.table);cell(tr,r.arrived?'Checked in':'Not yet',r.arrived?'pill':'');cell(tr,time(r.time));cell(tr,r.usher);el('guests').append(tr);}if(!shown.length){const tr=document.createElement('tr');cell(tr,'No guests match this view.');tr.firstChild.colSpan=5;el('guests').append(tr);}}
+function connectionUI(on){
+ for(const label of document.querySelectorAll('#connection label'))label.hidden=on||connecting||inPortal;
+ el('connect').hidden=on||inPortal;el('connect').disabled=connecting;
+ el('disconnect').disabled=!(on||connecting);
+ el('refresh').disabled=!on;el('export').disabled=!on;
+}
+function scheduleRefresh(){
+ clearTimeout(timer);
+ if(connected&&!document.hidden&&portalVisible)timer=setTimeout(refresh,failures?30000:10000);
+}
+function logout(broadcast=true){
+ const previousEndpoint=endpoint;++generation;connected=false;connecting=false;staffKey='';busy=false;clearTimeout(timer);bridge.close();
+ if(broadcast)staffSession.logout(previousEndpoint);else staffSession.clear();
+ rows=[];selectedTable=null;el('key').value='';render();connectionUI(false);status('Logged out.');
+}
+async function refresh(){
+ if(busy||!connected||!staffKey||!portalVisible)return;
+ clearTimeout(timer);busy=true;const run=generation;
+ try{
+  if(!bridge.peer)await bridge.connect(endpoint);
+  if(run!==generation)return;
+  const data=await bridge.request({action:'dashboard',key:staffKey});
+  if(run!==generation)return;
+  if(!Array.isArray(data.guests))throw Error('Guest data was not returned.');
+  const changed=JSON.stringify(rows)!==JSON.stringify(data.guests);rows=data.guests;
+  if(changed)render();failures=0;
+  status('Updated '+time(data.updated_at||new Date().toISOString())+' MYT · auto-updates about every 10 seconds');
+ }catch(e){
+  if(run!==generation)return;
+  if(staffSession.isAuthError(e)){logout();if(inPortal)window.parent.postMessage({type:'sains-portal-logout'},location.origin);status('Staff key was rejected. Please log in with the current key.',true);return;}
+  failures++;status('Attendance may be outdated. Retrying automatically in 30 seconds. '+e.message,true);
+ }finally{if(run===generation){busy=false;scheduleRefresh();}}
+}
+async function connect(saved=null){
+ if(connecting||connected)return;const run=++generation;connecting=true;connectionUI(false);
+ try{
+  endpoint=saved?.endpoint||el('endpoint').value.trim();staffKey=saved?.key||el('key').value.trim();
+  if(!staffKey)throw Error('Enter the staff access key.');
+  status(inPortal?'Loading attendance through the scanner…':saved?'Restoring your staff session…':'Connecting…');await bridge.connect(endpoint);
+  if(run!==generation)return;
+  await bridge.request({action:'stats',key:staffKey});if(run!==generation)return;
+  const existing=staffSession.read();
+  const remembered=staffSession.save({endpoint,key:staffKey,staff:existing?.endpoint===endpoint?existing.staff:''});
+  connected=true;connecting=false;failures=0;el('key').value='';connectionUI(true);render();await refresh();
+  if(!remembered&&!inPortal&&run===generation)status('Connected. Session storage is blocked; switching pages may require login again.',true);
+ }catch(e){
+  if(run!==generation)return;
+  if(staffSession.isAuthError(e))staffSession.clear();
+  staffKey='';connected=false;connecting=false;bridge.close();connectionUI(false);
+  if(inPortal&&staffSession.isAuthError(e))window.parent.postMessage({type:'sains-portal-logout'},location.origin);
+  status(e.message+(staffSession.isAuthError(e)?' Enter the current staff key.':(inPortal?' Retrying automatically; you can return to the scanner.':' Your saved login is retained for connection errors. Press Connect to retry.')),true);
+ }finally{if(run===generation){connecting=false;connectionUI(connected);}}
+}
+el('connect').onclick=()=>connect(el('key').value.trim()?null:staffSession.read());
+el('disconnect').onclick=()=>{logout();if(inPortal)window.parent.postMessage({type:'sains-portal-logout'},location.origin);};
+function resume(){if(inPortal&&!connected)return;if(connected)refresh();else if(!connecting){const saved=staffSession.read();if(saved){el('endpoint').value=saved.endpoint;connect(saved);}}}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)clearTimeout(timer);else resume();});
+window.addEventListener('online',resume);
+window.addEventListener('focus',()=>{if(!document.hidden)resume();});
+window.addEventListener('pageshow',e=>{if(e.persisted){if(!staffSession.read()&&(connected||connecting))logout(false);else resume();}});
+window.addEventListener('sains-staff-event',e=>{
+ if(e.detail.endpoint!==endpoint)return;
+ if(e.detail.type==='logout')logout(false);
+ else if(e.detail.type==='arrival'&&!document.hidden)refresh();
+});
+el('clear-table').onclick=()=>{selectedTable=null;render();el('search').focus();};
+el('search').oninput=render;el('filter').onchange=render;el('refresh').onclick=refresh;
+el('export').onclick=async()=>{const run=generation;try{const data=await bridge.request({action:'export',key:staffKey});if(run!==generation)return;const url=URL.createObjectURL(new Blob(['\ufeff'+data.csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='SAINS-attendance.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){status(e.message,true);}};
+let portalLogin=null,portalRetry=null;
+window.addEventListener('message',e=>{
+ if(!inPortal||e.origin!==location.origin||e.source!==window.parent)return;
+ if(e.data?.type==='sains-portal-visible'){portalVisible=!!e.data.visible;if(!portalVisible)clearTimeout(timer);else resume();return;}
+ if(e.data?.type!=='sains-portal-login')return;
+ portalVisible=true;
+ const m=e.data;if(typeof m.key!=='string'||typeof m.endpoint!=='string')return;
+ const changed=portalLogin&&(portalLogin.key!==m.key||portalLogin.endpoint!==m.endpoint);
+ portalLogin={key:m.key,endpoint:m.endpoint,staff:m.staff||''};
+ if(changed){++generation;connected=false;connecting=false;busy=false;clearTimeout(timer);bridge.close();}
+ if(connected)refresh();else if(!connecting)connect(portalLogin);
+ clearTimeout(portalRetry);
+ function retry(){if(portalVisible&&!connected&&!connecting&&portalLogin)connect(portalLogin);portalRetry=setTimeout(retry,30000);}
+ portalRetry=setTimeout(retry,30000);
+});
+document.querySelector('.nav-button').addEventListener('click',e=>{
+ if(inPortal){e.preventDefault();window.parent.postMessage({type:'sains-portal-scanner'},location.origin);}
+});
+if(inPortal){connectionUI(false);status('Opening your dashboard with the scanner login…');}
+else resume();
+</script></html>
